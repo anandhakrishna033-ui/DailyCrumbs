@@ -23,6 +23,12 @@ function loadBakeryData() {
         const el = document.getElementById(id);
         if (el) el[attribute] = value;
     };
+    // ADD THESE NEW LINES HERE:
+    updateElement("img-chef-arjun", bakeryConfig.chefArjun, "src");
+    updateElement("img-chef-meera", bakeryConfig.chefMeera, "src");
+    updateElement("img-process-mix", bakeryConfig.processMix, "src");
+    updateElement("img-process-ferment", bakeryConfig.processFerment, "src");
+    updateElement("img-process-bake", bakeryConfig.processBake, "src");
 
     updateElement("page-title", bakeryConfig.name + " | Artisanal Bakery");
     updateElement("display-name", bakeryConfig.name);
