@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - The Oven Door</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>The Oven Door</h1>
+        <p>Get in Touch</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Send Us a Message</h2>
+            <p>Have a question or want to place a custom order? Fill out the form below.</p>
+            
+            <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: auto;">
+                
+                <label for="userName" style="text-align: left;">Name:</label>
+                <input type="text" id="userName" name="userName" required minlength="3" style="padding: 10px;">
+                <span id="nameError" style="color: red; font-size: 0.8rem; text-align: left; display: none;">Name must be at least 3 characters.</span>
+
+                <label for="userEmail" style="text-align: left;">Email:</label>
+                <input type="email" id="userEmail" name="userEmail" required style="padding: 10px;">
+                <span id="emailError" style="color: red; font-size: 0.8rem; text-align: left; display: none;">Please enter a valid email address.</span>
+
+                <label for="userMessage" style="text-align: left;">Message:</label>
+                <textarea id="userMessage" name="userMessage" rows="5" required style="padding: 10px;"></textarea>
+
+                <button type="submit" class="cta-button" id="submitBtn" disabled style="background-color: gray;">Send Message</button>
+            </form>
+            <p id="success-message" style="color: green; display: none; margin-top: 15px; font-weight: bold;">Message sent successfully!</p>
+        </section>
+    </main>
+<section style="margin-top: 40px;">
+            <h2>Find Us Here</h2>
+            <p id="display-full-address">Loading address...</p>
+            
+            <div id="map-container" style="margin-top: 20px;">
+                <iframe id="bakery-map" src="" width="100%" height="300" style="border:0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    <footer>
+        <p>&copy; 2026 The Oven Door. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
