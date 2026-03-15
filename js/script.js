@@ -33,6 +33,9 @@ function loadBakeryData() {
         const el = document.getElementById(id);
         if (el) el[attribute] = value;
     };
+    updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
+updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
+updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
 
     // Branding & Header/Footer
     updateElement("page-title", bakeryConfig.name + " | Artisanal Bakery");
