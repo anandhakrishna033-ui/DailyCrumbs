@@ -7,7 +7,7 @@ const bakeryConfig = {
     name: "Daily Crumbs",
     location: "Trivandrum, Kerala",
     fullAddress: "123 Bakery Lane, MG Road, Trivandrum, Kerala 695001",
-    contactInfo: "hello@dailycrumbs.in | +91 98765 43210",
+    contactInfo: "hello@dailycrumbs.in | +91 6238164839",
     imageUrl: "https://nokta.pk/uploads/shops/shop_5_1758949734_2eb879.jpg",
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.923485458925!2d76.94862331478317!3d8.502097093887193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bb0000000001%3A0x0!2zOMKwMzAnMDcuNiJOIDc2wrA1NycwMi45IkU!5e0!3m2!1sen!2sin!4v1625650000000!5m2!1sen!2sin"
 };
