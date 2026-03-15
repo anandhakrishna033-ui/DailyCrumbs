@@ -48,6 +48,10 @@ updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
     updateElement("bakery-map", bakeryConfig.mapUrl, "src");
 
     // Dynamic Images for About Page
+    // Inside loadBakeryData() in js/script.js
+updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
+updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
+updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
     updateElement("img-chef-arjun", bakeryConfig.chefArjun, "src");
     updateElement("img-chef-meera", bakeryConfig.chefMeera, "src");
     updateElement("img-process-mix", bakeryConfig.processMix, "src");
