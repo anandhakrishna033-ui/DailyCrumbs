@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | Daily Crumbs</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="fade-in">
+
+    <header id="main-header">
+        <h1>Daily Crumbs</h1>
+        <p>Your Artisanal Selection</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Shop</a></li>
+            <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Shopping Cart</h2>
+            <table style="width:100%; border-collapse: collapse; margin-top: 20px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--primary-color);">
+                        <th style="text-align:left; padding: 10px;">Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    </tbody>
+            </table>
+
+            <div class="special-box" style="text-align: right;">
+                <p>Cart Total: ₹<span id="total-price">0</span></p>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="coupon-code" placeholder="Enter Coupon (e.g. CRUMBS20)" style="padding: 10px; border: 1px solid #ddd;">
+                    <button onclick="applyCoupon()" class="cta-button" style="margin-top:0;">Apply</button>
+                </div>
+                <h3 style="color: var(--primary-color);">Grand Total: ₹<span id="grand-total">0</span></h3>
+                <button class="cta-button" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Daily Crumbs | Artisanal Excellence</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
