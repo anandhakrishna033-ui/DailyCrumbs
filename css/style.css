@@ -1,30 +1,30 @@
 /* ==========================================
-   1. GLOBAL STYLES & VARIABLES
-   ========================================== */
+   1. GLOBAL SETTINGS 
+   ========================================== */
 :root {
-    --primary-color: #5d4037; /* Deep Bread Brown */
-    --accent-color: #d4af37;  /* Gold for Stars/Buttons */
-    --bg-color: #fdfaf5;      /* Warm Cream Paper */
-    --text-color: #333;
-    --card-bg: #ffffff;
+    --primary-color: #5d4037; /* Deep Bread Brown */
+    --accent-color: #d4af37;  /* Gold */
+    --bg-color: #fdfaf5;      /* Warm Cream */
+    --text-color: #333;
+    --card-bg: #ffffff;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 /* ==========================================
-   2. HEADER & NAVIGATION
-   ========================================== */
+   2. HEADER & NAVIGATION
+   ========================================== */
 header {
     background-color: var(--primary-color);
     color: white;
@@ -33,147 +33,115 @@ header {
 }
 
 .navbar {
-    background: #4e342e;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background: #4e342e;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
+    list-style: none;
+    display: flex;
+    justify-content: center;
 }
 
 .navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    display: block;
-    transition: 0.3s;
+    color: white;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    display: block;
+    transition: 0.3s;
 }
 
 .navbar a:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-color);
 }
 
 /* ==========================================
-   3. HERO & LAYOUT SECTIONS
-   ========================================== */
-.hero-container {
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-}
-
-.hero-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+   3. LAYOUT & GRIDS (Fixes the "Broken" Look)
+   ========================================== */
 main {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
-section {
-    margin-bottom: 4rem;
-}
 
-/* ==========================================
-   4. PRODUCT & FEEDBACK GRIDS
-   ========================================== */
+
+/* This handles the Home Page and Feedback cards */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.product-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
+/* This handles the Services Page gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
+.product-card, .gallery-item {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding-bottom: 1rem;
 }
 
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 1.5rem;
-}
-
-/* Gold Stars for Feedback Section */
-.rating-stars {
-    color: var(--accent-color);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+.product-card img, .gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
 }
 
 /* ==========================================
-   5. COMPONENTS (Buttons, Boxes, Toasts)
-   ========================================== */
+   4. COMPONENTS & FEEDBACK
+   ========================================== */
+.rating-stars {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
 .cta-button {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 1rem;
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 1rem;
+    border: none;
 }
 
 .special-box {
-    background-color: #fff3e0;
-    border-left: 5px solid var(--accent-color);
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-#toast-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #333;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    display: none;
-}
-
-#toast-notification.show {
-    display: block;
+    background-color: #fff3e0;
+    border-left: 5px solid var(--accent-color);
+    padding: 1.5rem;
+    margin: 2rem 0;
 }
 
 /* ==========================================
-   6. ANIMATIONS & MANIFESTO
-   ========================================== */
+   5. ANIMATIONS
+   ========================================== */
 .fade-in {
-    animation: fadeInAnimation 1.2s ease-in forwards;
+    animation: fadeInAnimation 1s ease-in forwards;
 }
 
 @keyframes fadeInAnimation {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 footer {
-    text-align: center;
-    padding: 2rem;
-    background: var(--primary-color);
-    color: white;
-    margin-top: 4rem;
+    text-align: center;
+    padding: 2rem;
+    background: var(--primary-color);
+    color: white;
+    margin-top: 4rem;
 }
- is this my dailycrumbs css code 
