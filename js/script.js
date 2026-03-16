@@ -100,6 +100,62 @@ if (ratingForm) {
         showToast();
     });
 }
+let cart = JSON.parse(localStorage.getItem('bakery_cart')) || [];
+
+function addToCart(name, price) {
+    const item = { name, price, qty: 1 };
+    cart.push(item);
+    localStorage.setItem('bakery_cart', JSON.stringify(cart));
+    alert(name + " added to cart!");
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const count = document.getElementById('cart-count');
+    if(count) count.innerText = cart.length;
+}
+
+function renderCart() {
+    const table = document.getElementById('cart-items');
+    if(!table) return;
+    
+    let total = 0;
+    table.innerHTML = cart.map(item => {
+        total += item.price;
+        return `
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 15px;">${item.name}</td>
+                <td style="text-align:center;">₹${item.price}</td>
+                <td style="text-align:center;">1</td>
+                <td style="text-align:center;">₹${item.price}</td>
+            </tr>
+        `;
+    }).join('');
+    
+    document.getElementById('total-price').innerText = total;
+    document.getElementById('grand-total').innerText = total;
+}
+
+function applyCoupon() {
+    const code = document.getElementById('coupon-code').value;
+    const total = parseFloat(document.getElementById('total-price').innerText);
+    let grandTotal = total;
+
+    if(code === "CRUMBS20") {
+        grandTotal = total * 0.8; // 20% Discount
+        alert("Coupon Applied! 20% off.");
+    } else {
+        alert("Invalid Coupon");
+    }
+    document.getElementById('grand-total').innerText = grandTotal.toFixed(2);
+}
+
+// Simple animation for swiping
+window.onload = () => {
+    document.body.classList.add('fade-in');
+    renderCart();
+    updateCartCount();
+};
 
 // ==========================================
 // 4. CONTACT FORM VALIDATION
