@@ -26,10 +26,10 @@ body {
    2. HEADER & NAVIGATION
    ========================================== */
 header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 2rem text-align center;
-    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem; 
+    text-align: center;
 }
 
 .navbar {
