@@ -22,7 +22,7 @@ const bakeryConfig = {
     imgHomeTart: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"
 };
 
-// PERSISTENCE
+// PERSISTENCE - Load existing ratings from Local Storage
 let allRatings = JSON.parse(localStorage.getItem('bakery_ratings')) || [];
 
 // ==========================================
@@ -33,9 +33,6 @@ function loadBakeryData() {
         const el = document.getElementById(id);
         if (el) el[attribute] = value;
     };
-    updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
-updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
-updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
 
     // Branding & Header/Footer
     updateElement("page-title", bakeryConfig.name + " | Artisanal Bakery");
@@ -47,33 +44,36 @@ updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
     updateElement("display-full-address", bakeryConfig.fullAddress);
     updateElement("bakery-map", bakeryConfig.mapUrl, "src");
 
+    // Dynamic Images for Home Page
+    updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
+    updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
+    updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
+
     // Dynamic Images for About Page
-    // Inside loadBakeryData() in js/script.js
-updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
-updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
-updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
     updateElement("img-chef-arjun", bakeryConfig.chefArjun, "src");
     updateElement("img-chef-meera", bakeryConfig.chefMeera, "src");
     updateElement("img-process-mix", bakeryConfig.processMix, "src");
     updateElement("img-process-ferment", bakeryConfig.processFerment, "src");
     updateElement("img-process-bake", bakeryConfig.processBake, "src");
-
-    // Dynamic Images for Home Page
-    updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
-    updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
-    updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
 }
 
 // ==========================================
 // 3. RATING SYSTEM
 // ==========================================
 function updateRatingDisplay() {
-    if (!document.getElementById("average-score")) return;
-    let totalScore = allRatings.reduce((a, b) => a + b, 0);
-    let average = allRatings.length > 0 ? (totalScore / allRatings.length) : 0;
-    document.getElementById("average-score").textContent = average.toFixed(1);
-    document.getElementById("total-reviews").textContent = allRatings.length;
-    localStorage.setItem('bakery_ratings', JSON.stringify(allRatings));
+    const avgScoreEl = document.getElementById("average-score");
+    const totalReviewsEl = document.getElementById("total-reviews");
+
+    if (avgScoreEl && totalReviewsEl) {
+        let totalScore = allRatings.reduce((a, b) => a + b, 0);
+        let average = allRatings.length > 0 ? (totalScore / allRatings.length) : 0;
+        
+        avgScoreEl.textContent = average.toFixed(1);
+        totalReviewsEl.textContent = allRatings.length;
+        
+        // Save to LocalStorage whenever data changes
+        localStorage.setItem('bakery_ratings', JSON.stringify(allRatings));
+    }
 }
 
 function showToast() {
@@ -89,10 +89,12 @@ if (ratingForm) {
     ratingForm.addEventListener("submit", function(event) {
         event.preventDefault();
         let val = parseInt(document.getElementById("user-rating").value);
-        allRatings.push(val);
-        updateRatingDisplay();
-        ratingForm.reset();
-        showToast();
+        if (val >= 1 && val <= 5) {
+            allRatings.push(val);
+            updateRatingDisplay();
+            ratingForm.reset();
+            showToast();
+        }
     });
 }
 
@@ -108,10 +110,14 @@ if (contactForm) {
     const emailError = document.getElementById("emailError");
 
     function checkFormValidity() {
+        if (!userName || !userEmail || !submitBtn) return;
+
         let isNameValid = userName.value.trim().length >= 3;
         let isEmailValid = userEmail.checkValidity() && userEmail.value !== "";
-        nameError.style.display = (userName.value.length > 0 && !isNameValid) ? "block" : "none";
-        emailError.style.display = (userEmail.value.length > 0 && !isEmailValid) ? "block" : "none";
+
+        if (nameError) nameError.style.display = (userName.value.length > 0 && !isNameValid) ? "block" : "none";
+        if (emailError) emailError.style.display = (userEmail.value.length > 0 && !isEmailValid) ? "block" : "none";
+
         submitBtn.disabled = !(isNameValid && isEmailValid);
         submitBtn.style.opacity = submitBtn.disabled ? "0.5" : "1";
         submitBtn.style.cursor = submitBtn.disabled ? "not-allowed" : "pointer";
@@ -122,12 +128,15 @@ if (contactForm) {
 
     contactForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        document.getElementById("success-message").style.display = "block";
+        const successMsg = document.getElementById("success-message");
+        if (successMsg) successMsg.style.display = "block";
         contactForm.reset();
         checkFormValidity();
     });
 }
 
-// Initialize
-loadBakeryData();
-updateRatingDisplay();
+// Initialize Everything
+document.addEventListener("DOMContentLoaded", () => {
+    loadBakeryData();
+    updateRatingDisplay();
+});
