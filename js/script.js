@@ -57,7 +57,12 @@ updateElement("img-home-tart", bakeryConfig.imgHomeTart, "src");
     updateElement("img-process-mix", bakeryConfig.processMix, "src");
     updateElement("img-process-ferment", bakeryConfig.processFerment, "src");
     updateElement("img-process-bake", bakeryConfig.processBake, "src");
-
+// Inside your loadBakeryData function in js/script.js
+updateElement("img-process-mix", "https://images.unsplash.com/photo-1555507036-ab1f40ce88cb?w=400", "src");
+updateElement("img-process-ferment", "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400", "src");
+updateElement("img-process-bake", "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400", "src");
+updateElement("img-chef-arjun", "https://images.unsplash.com/photo-1583394293235-4815c1516001?w=400", "src");
+updateElement("img-chef-meera", "https://images.unsplash.com/photo-1595273670150-db0c3c392416?w=400", "src");
     // Dynamic Images for Home Page
     updateElement("img-home-bread", bakeryConfig.imgHomeBread, "src");
     updateElement("img-home-croissant", bakeryConfig.imgHomeCroissant, "src");
