@@ -127,6 +127,45 @@ if (contactForm) {
         checkFormValidity();
     });
 }
+// Load and Display Community Feedback
+const communityForm = document.getElementById('community-feedback-form');
+const feedbackList = document.getElementById('dynamic-feedback-list');
+
+// Function to render feedback from LocalStorage
+function displayCommunityFeedback() {
+    const savedFeedback = JSON.parse(localStorage.getItem('community_feedback')) || [];
+    // Only clear if we have saved items to add to the static ones
+    savedFeedback.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'product-card';
+        div.innerHTML = `
+            <div class="card-content">
+                <div class="rating-stars">★★★★★</div>
+                <p>"${item.message}"</p>
+                <p><strong>— ${item.name}</strong></p>
+            </div>
+        `;
+        feedbackList.appendChild(div);
+    });
+}
+
+if (communityForm) {
+    communityForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('cust-name').value;
+        const message = document.getElementById('cust-message').value;
+
+        const newFeedback = { name, message };
+        const allFeedback = JSON.parse(localStorage.getItem('community_feedback')) || [];
+        allFeedback.push(newFeedback);
+        
+        localStorage.setItem('community_feedback', JSON.stringify(allFeedback));
+        location.reload(); // Refresh to show the new post
+    });
+}
+
+// Initialize on page load
+displayCommunityFeedback();
 
 // Initialize
 loadBakeryData();
