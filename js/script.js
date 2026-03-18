@@ -195,6 +195,37 @@ if (communityForm) {
         location.reload();
     });
 }
+// --- RECEIPT & CHECKOUT LOGIC ---
+function showReceipt() {
+    const modal = document.getElementById('receipt-modal');
+    const content = document.getElementById('receipt-content');
+    const totalDisplay = document.getElementById('receipt-total');
+    const grandTotal = document.getElementById('grand-total').innerText;
+
+    if (!modal || cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Generate the list of items for the receipt
+    content.innerHTML = cart.map(item => 
+        `<div style="display:flex; justify-content:space-between;">
+            <span>${item.name}</span>
+            <span>₹${item.price}</span>
+        </div>`
+    ).join('');
+
+    totalDisplay.innerText = "Paid: ₹" + grandTotal;
+    modal.style.display = "flex"; // Show the pop-up
+}
+
+function closeReceipt() {
+    document.getElementById('receipt-modal').style.display = "none";
+    // Clear the cart after "successful" payment
+    cart = [];
+    localStorage.removeItem('bakery_cart');
+    location.href = "index.html"; // Redirect to home with a swipe animation
+}
 
 // Event Listener for Contact Form
 const contactForm = document.getElementById("contact-form");
