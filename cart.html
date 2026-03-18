@@ -6,6 +6,19 @@
     <title>Your Cart | Daily Crumbs</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+    <div id="receipt-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:white; padding:30px; border-radius:10px; max-width:400px; width:90%; text-align:center; font-family: 'Courier New', Courier, monospace;">
+        <h2 style="color:var(--primary-color);">DAILY CRUMBS</h2>
+        <p>Trivandrum, Kerala</p>
+        <hr style="border:1px dashed #ccc; margin:15px 0;">
+        <div id="receipt-content" style="text-align:left; margin-bottom:20px;">
+            </div>
+        <hr style="border:1px dashed #ccc; margin:15px 0;">
+        <h3 id="receipt-total">Total: ₹0</h3>
+        <p style="font-size: 0.8rem; margin-top:10px;">Thank you for supporting artisanal baking!</p>
+        <button onclick="closeReceipt()" class="cta-button" style="width:100%;">Close & Clear Cart</button>
+    </div>
+</div>
 <body class="fade-in">
 
     <header id="main-header">
