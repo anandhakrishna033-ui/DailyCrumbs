@@ -10,7 +10,7 @@ const bakeryConfig = {
     mapUrl: "https://www.google.com/maps/embed?pb=your_real_map_link_here",
 
     // CHEFS & PROCESS (About Page)
-    chefWW: "https://69be41ae10e539a90709d947.imgix.net/walter%20white.jpg",
+    chefWW: "https://image.tensorartassets.com/cdn-cgi/image/anim=true,w=2560,f=jpeg,q=85/posts/images/633615772169545091/d4676c70-6247-45f6-85a4-f4df9a7cc831.jpg",
     chefMeera: "https://th.bing.com/th/id/OIP.p7msAPPF3cyqQn3qAqv1OAHaEJ?w=292&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
     processMix: "https://69be41ae10e539a90709d947.imgix.net/download%20(1).webp",
     processFerment: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",
