@@ -150,3 +150,50 @@ footer {
     color: white;
     margin-top: 4rem;
 }
+/* ==========================================
+   7. MOBILE RESPONSIVENESS (Phones & Tablets)
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. Shrink the Header */
+    header {
+        padding: 1.5rem 1rem;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+
+    /* 2. Stack the Navigation Bar */
+    .navbar ul {
+        flex-direction: column; /* Stacks links vertically */
+        padding: 0;
+    }
+    .navbar a {
+        padding: 0.8rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Adds dividers */
+    }
+
+    /* 3. Force Grids to Single Column */
+    .product-grid, .gallery-grid {
+        grid-template-columns: 1fr; /* 1 item per row */
+        gap: 1.5rem;
+    }
+
+    /* 4. Adjust Main Body Spacing */
+    main {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+
+    /* 5. Fix Cart Table Overflow */
+    table {
+        display: block;
+        overflow-x: auto; /* Allows horizontal swipe on the table if needed */
+        white-space: nowrap;
+    }
+
+    /* 6. Two-Column Text Fix (About Page) */
+    div[style*="columns: 2"] {
+        columns: 1 !important; /* Stacks the "Our Promise" section */
+    }
+}
