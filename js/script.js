@@ -18,7 +18,7 @@ const bakeryConfig = {
 
     // PRODUCTS (Home Page)
     imgHomeBread: "https://69be41ae10e539a90709d947.imgix.net/download.webp",
-    imgHomeCroissant: "https://images.unsplash.com/photo-1555507036-ab1f40ce88cb?w=400",
+    imgHomeCroissant: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdrxra7owr3vtpS_suzB6GrqOyUpM8I5KeDg&s",
     imgHomeTart: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"
 };
 
