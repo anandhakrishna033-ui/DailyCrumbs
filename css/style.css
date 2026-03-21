@@ -1,10 +1,10 @@
 /* ==========================================
-   1. GLOBAL SETTINGS 
+   1. GLOBAL SETTINGS & VARIABLES
    ========================================== */
 :root {
-    --primary-color: #5d4037; /* Deep Bread Brown */
-    --accent-color: #d4af37;  /* Gold */
-    --bg-color: #fdfaf5;      /* Warm Cream */
+    --primary-color: #5d4037; 
+    --accent-color: #d4af37;  
+    --bg-color: #fdfaf5;      
     --text-color: #333;
     --card-bg: #ffffff;
 }
@@ -20,6 +20,7 @@ body {
     line-height: 1.6;
     background-color: var(--bg-color);
     color: var(--text-color);
+    overflow-x: hidden; /* Prevents scrollbars during swipe */
 }
 
 /* ==========================================
@@ -28,7 +29,7 @@ body {
 header {
     background-color: var(--primary-color);
     color: white;
-    padding: 2rem; 
+    padding: 2.5rem; 
     text-align: center;
 }
 
@@ -50,15 +51,16 @@ header {
     text-decoration: none;
     padding: 1rem 1.5rem;
     display: block;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .navbar a:hover {
     background-color: var(--accent-color);
+    letter-spacing: 1px; /* Subtle expansion effect */
 }
 
 /* ==========================================
-   3. LAYOUT & GRIDS (Fixes the "Broken" Look)
+   3. LAYOUT & GRIDS
    ========================================== */
 main {
     max-width: 1100px;
@@ -66,181 +68,85 @@ main {
     padding: 0 1rem;
 }
 
-
-
-/* This handles the Home Page and Feedback cards */
-.product-grid {
+.product-grid, .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
-/* This handles the Services Page gallery */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-}
-
+/* ==========================================
+   4. CARD ANIMATIONS (HOVER EFFECTS)
+   ========================================== */
 .product-card, .gallery-item {
     background: var(--card-bg);
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     overflow: hidden;
-    padding-bottom: 1rem;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.4s ease;
 }
 
-.product-card img, .gallery-item img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-/* ==========================================
-   4. COMPONENTS & FEEDBACK
-   ========================================== */
-.rating-stars {
-    color: var(--accent-color);
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-.cta-button {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 1rem;
-    border: none;
-}
-
-.special-box {
-    background-color: #fff3e0;
-    border-left: 5px solid var(--accent-color);
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-/* ==========================================
-   5. ANIMATIONS
-   ========================================== */
-.fade-in {
-    animation: fadeInAnimation 1s ease-in forwards;
-}
-
-@keyframes fadeInAnimation {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    background: var(--primary-color);
-    color: white;
-    margin-top: 4rem;
-}
-:root {
-    --primary-color: #5d4037; 
-    --accent-color: #d4af37;  
-    --bg-color: #fdfaf5;      
-    --text-color: #333;
-    --card-bg: #ffffff;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 2.5rem;
-    text-align: center;
-}
-
-.navbar {
-    background: #4e342e;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    display: block;
-}
-
-.navbar a:hover { background: var(--accent-color); }
-
-main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.product-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    overflow: hidden;
+.product-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 30px rgba(93, 64, 55, 0.2);
 }
 
 .product-card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    background-color: #eee; /* Shows a grey box if image fails */
+    transition: transform 0.5s ease;
 }
 
-.card-content { padding: 1.5rem; }
+.product-card:hover img {
+    transform: scale(1.1); /* Zoom effect on bread images */
+}
 
+/* ==========================================
+   5. PAGE TRANSITIONS (THE SWIPE)
+   ========================================== */
 .fade-in {
-    animation: fadeIn 1s ease-in;
+    animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes slideIn {
+    0% { 
+        transform: translateX(100px); 
+        opacity: 0; 
+    }
+    100% { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+}
+
+/* ==========================================
+   6. COMPONENTS (Buttons & Extras)
+   ========================================== */
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    text-decoration: none;
+    border-radius: 50px; /* Modern rounded buttons */
+    font-weight: bold;
+    margin-top: 1rem;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 footer {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem;
     background: var(--primary-color);
     color: white;
-}
-body {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.fade-in {
-    animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-@keyframes slideIn {
-    0% { transform: translateX(50px); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
+    margin-top: 4rem;
 }
