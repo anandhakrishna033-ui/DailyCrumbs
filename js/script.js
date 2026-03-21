@@ -17,7 +17,7 @@ const bakeryConfig = {
     processBake: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400",
 
     // PRODUCTS (Home Page)
-    imgHomeBread: "https://images.unsplash.com/photo-1585478259715-876a6a81b374?w=400",
+    imgHomeBread: "https://69be41ae10e539a90709d947.imgix.net/download.webp",
     imgHomeCroissant: "https://images.unsplash.com/photo-1555507036-ab1f40ce88cb?w=400",
     imgHomeTart: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"
 };
