@@ -53,6 +53,8 @@ function loadBakeryData() {
     updateElement("img-process-mix", bakeryConfig.processMix, "src");
     updateElement("img-process-ferment", bakeryConfig.processFerment, "src");
     updateElement("img-process-bake", bakeryConfig.processBake, "src");
+    updateElement("img-process-ferment", bakeryConfig.processFerment, "src");
+updateElement("img-process-bake", bakeryConfig.processBake, "src");
 }
 
 // ==========================================
