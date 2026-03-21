@@ -12,7 +12,7 @@ const bakeryConfig = {
     // CHEFS & PROCESS (About Page)
     chefArjun: "https://images.unsplash.com/photo-1583394293235-4815c1516001?w=400",
     chefMeera: "https://images.unsplash.com/photo-1595273670150-db0c3c392416?w=400",
-    processMix: "https://images.unsplash.com/photo-1555507036-ab1f40ce88cb?w=400",
+    processMix: "https://69be41ae10e539a90709d947.imgix.net/download%20(1).webp",
     processFerment: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",
     processBake: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400",
 
