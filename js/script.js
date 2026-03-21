@@ -22,7 +22,7 @@ const bakeryConfig = {
     imgHomeTart: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"
 };
 
-// PERSISTENCE DATA
+// PERSISTENCE DATA (Using consistent 'bakery_cart' key)
 let allRatings = JSON.parse(localStorage.getItem('bakery_ratings')) || [];
 let cart = JSON.parse(localStorage.getItem('bakery_cart')) || [];
 
@@ -35,7 +35,6 @@ function loadBakeryData() {
         if (el) el[attribute] = value;
     };
 
-    // Branding & Header/Footer
     updateElement("page-title", bakeryConfig.name + " | Artisanal Bakery");
     updateElement("display-name", bakeryConfig.name);
     updateElement("display-location", bakeryConfig.location);
@@ -60,10 +59,12 @@ function loadBakeryData() {
 // 3. RATING & FEEDBACK SYSTEM
 // ==========================================
 function updateRatingDisplay() {
-    if (!document.getElementById("average-score")) return;
+    const avgScoreEl = document.getElementById("average-score");
+    if (!avgScoreEl) return;
+    
     let totalScore = allRatings.reduce((a, b) => a + b, 0);
     let average = allRatings.length > 0 ? (totalScore / allRatings.length) : 0;
-    document.getElementById("average-score").textContent = average.toFixed(1);
+    avgScoreEl.textContent = average.toFixed(1);
     document.getElementById("total-reviews").textContent = allRatings.length;
     localStorage.setItem('bakery_ratings', JSON.stringify(allRatings));
 }
@@ -76,7 +77,6 @@ function showToast() {
     }
 }
 
-// Community Feedback Logic
 function displayCommunityFeedback() {
     const feedbackList = document.getElementById('dynamic-feedback-list');
     if (!feedbackList) return;
@@ -84,14 +84,13 @@ function displayCommunityFeedback() {
     const savedFeedback = JSON.parse(localStorage.getItem('community_feedback')) || [];
     savedFeedback.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'product-card';
+        div.className = 'product-card fade-in';
         div.innerHTML = `
             <div class="card-content">
                 <div class="rating-stars">★★★★★</div>
                 <p>"${item.message}"</p>
                 <p><strong>— ${item.name}</strong></p>
-            </div>
-        `;
+            </div>`;
         feedbackList.appendChild(div);
     });
 }
@@ -100,11 +99,10 @@ function displayCommunityFeedback() {
 // 4. CART & SHOPPING LOGIC
 // ==========================================
 function addToCart(name, price) {
-    const item = { name, price, qty: 1 };
-    cart.push(item);
+    cart.push({ name, price });
     localStorage.setItem('bakery_cart', JSON.stringify(cart));
-    alert(name + " added to cart!");
     updateCartCount();
+    alert(name + " added to bag!");
 }
 
 function updateCartCount() {
@@ -113,26 +111,31 @@ function updateCartCount() {
 }
 
 function renderCart() {
-    const table = document.getElementById('cart-items');
-    if (!table) return;
+    const tableBody = document.getElementById('cart-items');
+    if (!tableBody) return;
     
     let total = 0;
-    table.innerHTML = cart.map((item, index) => {
-        total += item.price;
-        return `
-            <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 15px;">${item.name}</td>
-                <td style="text-align:center;">₹${item.price}</td>
-                <td style="text-align:center;">1</td>
-                <td style="text-align:center;">
-                    <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;">X</button>
-                </td>
-            </tr>
-        `;
-    }).join('');
+    if (cart.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" style="padding:20px; text-align:center;">Your bag is empty!</td></tr>';
+    } else {
+        tableBody.innerHTML = cart.map((item, index) => {
+            total += item.price;
+            return `
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 15px;">${item.name}</td>
+                    <td style="text-align:center;">₹${item.price}</td>
+                    <td style="text-align:center;">1</td>
+                    <td style="text-align:center;">
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
+                    </td>
+                </tr>`;
+        }).join('');
+    }
     
-    document.getElementById('total-price').innerText = total;
-    document.getElementById('grand-total').innerText = total;
+    const totalPriceEl = document.getElementById('total-price');
+    const grandTotalEl = document.getElementById('grand-total');
+    if (totalPriceEl) totalPriceEl.innerText = total;
+    if (grandTotalEl) grandTotalEl.innerText = total;
 }
 
 function removeFromCart(index) {
@@ -143,14 +146,14 @@ function removeFromCart(index) {
 }
 
 function applyCoupon() {
-    const codeEl = document.getElementById('coupon-code');
-    const grandTotalEl = document.getElementById('grand-total');
+    const code = document.getElementById('coupon-code')?.value;
     const totalPriceEl = document.getElementById('total-price');
+    const grandTotalEl = document.getElementById('grand-total');
     
-    if (!codeEl || !totalPriceEl) return;
+    if (!totalPriceEl || !grandTotalEl) return;
 
-    const total = parseFloat(totalPriceEl.innerText);
-    if (codeEl.value === "CRUMBS20") {
+    let total = parseFloat(totalPriceEl.innerText);
+    if (code === "CRUMBS20") {
         grandTotalEl.innerText = (total * 0.8).toFixed(2);
         alert("Coupon Applied! 20% off.");
     } else {
@@ -159,10 +162,40 @@ function applyCoupon() {
 }
 
 // ==========================================
-// 5. INITIALIZATION & EVENT LISTENERS
+// 5. RECEIPT & CHECKOUT
+// ==========================================
+function showReceipt() {
+    const modal = document.getElementById('receipt-modal');
+    const content = document.getElementById('receipt-content');
+    const totalDisplay = document.getElementById('receipt-total');
+    const grandTotal = document.getElementById('grand-total')?.innerText || "0";
+
+    if (!modal || cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    content.innerHTML = cart.map(item => 
+        `<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <span>${item.name}</span>
+            <span>₹${item.price}</span>
+        </div>`).join('');
+
+    totalDisplay.innerText = "Total Paid: ₹" + grandTotal;
+    modal.style.display = "flex";
+}
+
+function closeReceipt() {
+    document.getElementById('receipt-modal').style.display = "none";
+    cart = [];
+    localStorage.removeItem('bakery_cart');
+    window.location.href = "index.html"; 
+}
+
+// ==========================================
+// 6. INITIALIZATION & LISTENERS
 // ==========================================
 window.onload = () => {
-    document.body.classList.add('fade-in');
     loadBakeryData();
     updateRatingDisplay();
     updateCartCount();
@@ -170,77 +203,37 @@ window.onload = () => {
     displayCommunityFeedback();
 };
 
-// Event Listener for Rating Form
-const ratingForm = document.getElementById("rating-form");
-if (ratingForm) {
-    ratingForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        allRatings.push(parseInt(document.getElementById("user-rating").value));
-        updateRatingDisplay();
-        ratingForm.reset();
-        showToast();
-    });
-}
+// Form Listeners
+document.getElementById("rating-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    allRatings.push(parseInt(document.getElementById("user-rating").value));
+    updateRatingDisplay();
+    e.target.reset();
+    showToast();
+});
 
-// Event Listener for Community Feedback
-const communityForm = document.getElementById('community-feedback-form');
-if (communityForm) {
-    communityForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('cust-name').value;
-        const message = document.getElementById('cust-message').value;
-        const allFeedback = JSON.parse(localStorage.getItem('community_feedback')) || [];
-        allFeedback.push({ name, message });
-        localStorage.setItem('community_feedback', JSON.stringify(allFeedback));
-        location.reload();
-    });
-}
-// --- RECEIPT & CHECKOUT LOGIC ---
-function showReceipt() {
-    const modal = document.getElementById('receipt-modal');
-    const content = document.getElementById('receipt-content');
-    const totalDisplay = document.getElementById('receipt-total');
-    const grandTotal = document.getElementById('grand-total').innerText;
+document.getElementById('community-feedback-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cust-name').value;
+    const message = document.getElementById('cust-message').value;
+    const allFeedback = JSON.parse(localStorage.getItem('community_feedback')) || [];
+    allFeedback.push({ name, message });
+    localStorage.setItem('community_feedback', JSON.stringify(allFeedback));
+    window.location.reload();
+});
 
-    if (!modal || cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
+// Contact Form Validation
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const submitBtn = document.getElementById("submitBtn");
 
-    // Generate the list of items for the receipt
-    content.innerHTML = cart.map(item => 
-        `<div style="display:flex; justify-content:space-between;">
-            <span>${item.name}</span>
-            <span>₹${item.price}</span>
-        </div>`
-    ).join('');
-
-    totalDisplay.innerText = "Paid: ₹" + grandTotal;
-    modal.style.display = "flex"; // Show the pop-up
-}
-
-function closeReceipt() {
-    document.getElementById('receipt-modal').style.display = "none";
-    // Clear the cart after "successful" payment
-    cart = [];
-    localStorage.removeItem('bakery_cart');
-    location.href = "index.html"; // Redirect to home with a swipe animation
-}
-
-// Event Listener for Contact Form
-const contactForm = document.getElementById("contact-form");
-if (contactForm) {
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const submitBtn = document.getElementById("submitBtn");
-
+if (userName && userEmail && submitBtn) {
     const checkForm = () => {
         let isNameValid = userName.value.trim().length >= 3;
         let isEmailValid = userEmail.checkValidity() && userEmail.value !== "";
         submitBtn.disabled = !(isNameValid && isEmailValid);
         submitBtn.style.opacity = submitBtn.disabled ? "0.5" : "1";
     };
-
     userName.addEventListener("input", checkForm);
     userEmail.addEventListener("input", checkForm);
 }
