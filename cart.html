@@ -6,79 +6,20 @@
     <title>Your Cart | Daily Crumbs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    
     <style>
-        /* Daily Crumbs Custom Theme */
-        :root {
-            --primary-color: #d35400; /* Warm baked crust color */
-            --secondary-color: #f39c12;
-            --bg-color: #fdfbf7; /* Flour white */
-            --text-color: #4a4a4a;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Header & Nav */
-        #main-header {
-            background: #fff;
-            text-align: center;
-            padding: 30px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        #main-header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #2c3e50;
-            letter-spacing: 2px;
-        }
-
-        #main-header p {
-            color: var(--primary-color);
-            font-style: italic;
-            margin: 5px 0 0 0;
-        }
-
-        .navbar {
-            background: #2c3e50;
-            padding: 15px 0;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1000px;
+        /* =========================================
+           CART-SPECIFIC STYLES ONLY
+           (Move these to style.css later if you want!)
+           ========================================= */
+        
+        .cart-section {
+            max-width: 1100px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        section h2 {
+        .cart-section h2 {
             font-size: 2rem;
             color: #2c3e50;
             margin-bottom: 25px;
@@ -87,12 +28,25 @@
             gap: 10px;
         }
 
+        .cart-layout {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .cart-table-container {
+            flex: 2;
+            min-width: 60%;
+            overflow-x: auto;
+        }
+
         /* Beautiful Table Design */
         .cart-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0 15px;
-            margin-top: 10px;
+            margin-top: 0;
         }
 
         .cart-table th {
@@ -153,7 +107,7 @@
 
         .price-text {
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--primary-color, #d35400);
             font-size: 1.1rem;
         }
 
@@ -170,14 +124,12 @@
 
         /* Checkout Summary Box */
         .summary-box {
+            flex: 1;
+            min-width: 300px;
             background: #fff;
             padding: 30px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-top: 30px;
-            max-width: 400px;
-            float: right;
-            width: 100%;
         }
 
         .summary-row {
@@ -203,11 +155,11 @@
         }
 
         .coupon-area input:focus {
-            border-color: var(--primary-color);
+            border-color: var(--primary-color, #d35400);
         }
 
         .cta-button {
-            background: var(--primary-color);
+            background: var(--primary-color, #d35400);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -228,29 +180,14 @@
             font-size: 1.2rem;
             margin-top: 20px;
         }
-
-        /* Clearfix for float */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #7f8c8d;
-            margin-top: 80px;
-            border-top: 1px solid #ecf0f1;
-        }
     </style>
 </head>
 <body class="fade-in">
 
     <div id="receipt-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
         <div style="background:white; padding:40px; border-radius:15px; max-width:400px; width:90%; text-align:center; font-family: 'Courier New', Courier, monospace; position: relative;">
-            <i class="fas fa-receipt" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"></i>
-            <h2 style="color:var(--primary-color); margin: 0;">DAILY CRUMBS</h2>
+            <i class="fas fa-receipt" style="font-size: 3rem; color: var(--primary-color, #d35400); margin-bottom: 15px;"></i>
+            <h2 style="color:var(--primary-color, #d35400); margin: 0;">DAILY CRUMBS</h2>
             <p style="color: #7f8c8d; margin-top: 5px;">Trivandrum, Kerala</p>
             <hr style="border:1px dashed #ccc; margin:20px 0;">
             
@@ -265,92 +202,98 @@
     </div>
 
     <header id="main-header">
-        <h1><i class="fas fa-wheat-awn" style="color: var(--secondary-color);"></i> Daily Crumbs</h1>
+        <h1>Daily Crumbs</h1>
         <p>Your Artisanal Selection</p>
     </header>
 
     <nav class="navbar">
         <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="services.html"><i class="fas fa-store"></i> Shop</a></li>
-            <li><a href="cart.html"><i class="fas fa-shopping-basket"></i> Cart (<span id="cart-count">2</span>)</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Shop</a></li>
+            <li><a href="cart.html">Cart (<span id="cart-count">2</span>)</a></li>
         </ul>
     </nav>
 
-    <main class="clearfix">
-        <section>
-            <h2><i class="fas fa-shopping-cart" style="color: var(--primary-color);"></i> Shopping Cart</h2>
+    <main>
+        <section class="cart-section">
+            <h2><i class="fas fa-shopping-cart" style="color: var(--primary-color, #d35400);"></i> Shopping Cart</h2>
             
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product Details</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="cart-items">
-                    <tr>
-                        <td>
-                            <div class="item-cell">
-                                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=150&q=80" alt="Butter Croissant" class="item-image">
-                                <div>
-                                    <div class="item-name">Classic Butter Croissant</div>
-                                    <div class="item-desc">Freshly baked, flaky layers</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price-text">₹120</td>
-                        <td><span class="qty-badge">2</span></td>
-                        <td class="price-text">₹240</td>
-                        <td><i class="fas fa-trash remove-icon" title="Remove Item"></i></td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            <div class="item-cell">
-                                <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=150&q=80" alt="Sourdough Bread" class="item-image">
-                                <div>
-                                    <div class="item-name">Rustic Sourdough Loaf</div>
-                                    <div class="item-desc">Naturally leavened, 500g</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price-text">₹180</td>
-                        <td><span class="qty-badge">1</span></td>
-                        <td class="price-text">₹180</td>
-                        <td><i class="fas fa-trash remove-icon" title="Remove Item"></i></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="cart-layout">
+                
+                <div class="cart-table-container">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <tr>
+                                <td>
+                                    <div class="item-cell">
+                                        <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=150&q=80" alt="Butter Croissant" class="item-image">
+                                        <div>
+                                            <div class="item-name">Classic Butter Croissant</div>
+                                            <div class="item-desc">Freshly baked, flaky layers</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="price-text">₹120</td>
+                                <td><span class="qty-badge">2</span></td>
+                                <td class="price-text">₹240</td>
+                                <td><i class="fas fa-trash remove-icon" title="Remove Item"></i></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <div class="item-cell">
+                                        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=150&q=80" alt="Sourdough Bread" class="item-image">
+                                        <div>
+                                            <div class="item-name">Rustic Sourdough Loaf</div>
+                                            <div class="item-desc">Naturally leavened, 500g</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="price-text">₹180</td>
+                                <td><span class="qty-badge">1</span></td>
+                                <td class="price-text">₹180</td>
+                                <td><i class="fas fa-trash remove-icon" title="Remove Item"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div class="summary-box">
-                <div class="summary-row">
-                    <span>Cart Total:</span>
-                    <span style="font-weight: bold;">₹<span id="total-price">420</span></span>
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>Cart Total:</span>
+                        <span style="font-weight: bold;">₹<span id="total-price">420</span></span>
+                    </div>
+                    
+                    <div class="coupon-area">
+                        <input type="text" id="coupon-code" placeholder="Promo Code (e.g. CRUMBS20)">
+                        <button onclick="applyCoupon()" class="cta-button"><i class="fas fa-tag"></i> Apply</button>
+                    </div>
+                    
+                    <div class="summary-row" style="border-top: 2px solid #ecf0f1; padding-top: 15px; margin-top: 15px;">
+                        <span style="font-size: 1.3rem; font-weight: bold; color: #2c3e50;">Grand Total:</span>
+                        <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary-color, #d35400);">₹<span id="grand-total">420</span></span>
+                    </div>
+                    
+                    <button class="cta-button checkout-btn" onclick="checkout()">
+                        Proceed to Checkout <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                    </button>
                 </div>
-                
-                <div class="coupon-area">
-                    <input type="text" id="coupon-code" placeholder="Promo Code (e.g. CRUMBS20)">
-                    <button onclick="applyCoupon()" class="cta-button"><i class="fas fa-tag"></i> Apply</button>
-                </div>
-                
-                <div class="summary-row" style="border-top: 2px solid #ecf0f1; padding-top: 15px; margin-top: 15px;">
-                    <span style="font-size: 1.3rem; font-weight: bold; color: #2c3e50;">Grand Total:</span>
-                    <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary-color);">₹<span id="grand-total">420</span></span>
-                </div>
-                
-                <button class="cta-button checkout-btn" onclick="checkout()">
-                    Proceed to Checkout <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
-                </button>
+
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Daily Crumbs | Artisanal Excellence <br> Made with <i class="fas fa-heart" style="color: var(--primary-color);"></i> in Trivandrum</p>
+        <p>&copy; 2026 Daily Crumbs | Artisanal Excellence</p>
     </footer>
 
     <script src="js/script.js"></script>
